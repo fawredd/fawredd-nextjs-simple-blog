@@ -208,8 +208,8 @@ export default function ContactoPage() {
                   <div>
                     <h3 className="font-semibold text-gray-800">Email</h3>
                     <p className="text-gray-600">
-                      info@etercell.com<br />
-                      consultas@etercell.com
+                      info@test.com<br />
+                      consultas@test.com
                     </p>
                   </div>
                 </div>
@@ -227,98 +227,9 @@ export default function ContactoPage() {
                 </div>
               </CardContent>
             </Card>
-
-            {/* Emergency Contact */}
-            <Card className="bg-red-50 border-red-200">
-              <CardContent className="p-6">
-                <h3 className="font-semibold text-red-800 mb-2">
-                  Contacto de Emergencia
-                </h3>
-                <p className="text-red-700 text-sm mb-3">
-                  Para emergencias médicas fuera del horario de atención:
-                </p>
-                <p className="font-semibold text-red-800">
-                  +1 (555) 911-HELP
-                </p>
-                <p className="text-red-600 text-xs mt-2">
-                  Disponible 24/7 para emergencias relacionadas con nuestros tratamientos
-                </p>
-              </CardContent>
-            </Card>
           </div>
         </div>
 
-        {/* Map Section */}
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="text-2xl text-green-600">
-              Nuestra Ubicación
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="bg-gray-200 h-96 rounded-lg flex items-center justify-center">
-              <div className="text-center text-gray-600">
-                <MapPin className="w-12 h-12 mx-auto mb-4" />
-                <p className="text-lg font-semibold">Mapa Interactivo</p>
-                <p className="text-sm">
-                  Aquí se mostraría un mapa interactivo con nuestra ubicación
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* FAQ Section */}
-        <Card>
-          <CardHeader>
-            <CardTitle className="text-2xl text-green-600">
-              Preguntas Frecuentes
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-6">
-              <div>
-                <h3 className="font-semibold text-gray-800 mb-2">
-                  ¿Cómo puedo agendar una consulta?
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Puedes agendar una consulta llamando a nuestro número principal, 
-                  enviando un email, o completando el formulario de contacto en esta página.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-gray-800 mb-2">
-                  ¿Qué debo traer a mi primera consulta?
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Te recomendamos traer tu historial médico, estudios previos relevantes, 
-                  lista de medicamentos actuales y tu documento de identidad.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-gray-800 mb-2">
-                  ¿Aceptan seguros médicos?
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Trabajamos con varios seguros médicos. Te recomendamos contactarnos 
-                  para verificar la cobertura de tu plan específico.
-                </p>
-              </div>
-
-              <div>
-                <h3 className="font-semibold text-gray-800 mb-2">
-                  ¿Ofrecen consultas virtuales?
-                </h3>
-                <p className="text-gray-600 text-sm">
-                  Sí, ofrecemos consultas virtuales para evaluaciones iniciales y 
-                  seguimientos. Contacta con nosotros para programar una cita virtual.
-                </p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
       </main>
 
       <Footer />

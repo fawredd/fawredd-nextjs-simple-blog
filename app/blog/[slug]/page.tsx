@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { BlogService } from "@/lib/blog-service"
 import { ArrowLeft, Calendar, User } from 'lucide-react'
+import { brand } from "@/lib/config"
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>
@@ -189,17 +190,17 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 
   if (!post) {
     return {
-      title: 'Artículo no encontrado - ETERCELL',
+      title: 'Artículo no encontrado',
       description: 'El artículo que buscas no existe o ha sido eliminado.'
     }
   }
 
   return {
-    title: `${post.title} - ETERCELL Blog`,
-    description: post.excerpt || `Lee sobre ${post.title} en el blog de ETERCELL, especialistas en medicina regenerativa.`,
+    title: `${post.title} - ${brand} Blog`,
+    description: post.excerpt || `Lee sobre ${post.title} en el blog de ${brand}, especialistas en medicina regenerativa.`,
     openGraph: {
       title: post.title,
-      description: post.excerpt || `Lee sobre ${post.title} en el blog de ETERCELL.`,
+      description: post.excerpt || `Lee sobre ${post.title} en el blog de ${brand}.`,
       images: post.featured_image ? [post.featured_image] : [],
       type: 'article',
       publishedTime: post.created_at,
@@ -209,7 +210,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     twitter: {
       card: 'summary_large_image',
       title: post.title,
-      description: post.excerpt || `Lee sobre ${post.title} en el blog de ETERCELL.`,
+      description: post.excerpt || `Lee sobre ${post.title} en el blog de ${brand}.`,
       images: post.featured_image ? [post.featured_image] : [],
     }
   }

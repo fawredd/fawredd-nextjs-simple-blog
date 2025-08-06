@@ -1,5 +1,5 @@
 {
-  "name": "etercell-blog",
+  "name": "fawredd-nextjs-simple-blog",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -54,6 +54,7 @@
     "vaul": "^1.1.1"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^22.10.1",
     "@types/react": "^19.0.1",

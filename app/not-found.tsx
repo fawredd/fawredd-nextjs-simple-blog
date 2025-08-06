@@ -25,29 +25,6 @@ export default function NotFound() {
                 Ir al Inicio
               </Button>
             </Link>
-            
-            <Button 
-              variant="outline" 
-              className="w-full"
-              onClick={() => window.history.back()}
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Volver Atrás
-            </Button>
-          </div>
-
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <p className="text-sm text-gray-500 mb-4">
-              ¿Necesitas ayuda? Contáctanos:
-            </p>
-            <div className="space-y-2 text-sm">
-              <p className="text-gray-600">
-                📞 +1 (555) 123-4567
-              </p>
-              <p className="text-gray-600">
-                ✉️ info@etercell.com
-              </p>
-            </div>
           </div>
         </CardContent>
       </Card>

@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Menu, X } from 'lucide-react'
-
+import { menuItems, headerLogo} from '@/lib/config'
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -16,30 +16,23 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <Image
-              src="/Etercell-Logo-H.png"
-              alt="Etercell Logo"
+              src={headerLogo.image}
+              alt={headerLogo.alt}
+              width={116}
               height={40}
-              className="w-10 h-10"
+              className="h-10"
             />
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-8">
-            <Link href="/" className="text-gray-700 hover:text-green-600 transition-colors">
-              Inicio
-            </Link>
-            <Link href="/especialidades" className="text-gray-700 hover:text-green-600 transition-colors">
-              Especialidades
-            </Link>
-            <Link href="/blog" className="text-gray-700 hover:text-green-600 transition-colors">
-              Blog
-            </Link>
-            <Link href="/contacto" className="text-gray-700 hover:text-green-600 transition-colors">
-              Contacto
-            </Link>
-            <Button className="bg-green-600 hover:bg-green-700 text-white">
-              Solicitar Cita
-            </Button>
+            {menuItems.length > 0 &&
+              menuItems.map((item, itemIndex) => (
+                <Link key={`menu${itemIndex}`} href={item.url} className="text-gray-700 hover:text-green-600 transition-colors">
+                  {item.title}
+                </Link>
+              ))
+            }
           </nav>
 
           {/* Mobile Menu Button */}
@@ -56,37 +49,18 @@ export default function Header() {
         {isMenuOpen && (
           <nav className="md:hidden py-4 border-t">
             <div className="flex flex-col space-y-4">
-              <Link 
-                href="/" 
-                className="text-gray-700 hover:text-green-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Inicio
-              </Link>
-              <Link 
-                href="/especialidades" 
-                className="text-gray-700 hover:text-green-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Especialidades
-              </Link>
-              <Link 
-                href="/blog" 
-                className="text-gray-700 hover:text-green-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Blog
-              </Link>
-              <Link 
-                href="/contacto" 
-                className="text-gray-700 hover:text-green-600 transition-colors"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                Contacto
-              </Link>
-              <Button className="bg-green-600 hover:bg-green-700 text-white w-fit">
-                Solicitar Cita
-              </Button>
+              {menuItems.length > 0 &&
+              menuItems.map((item, itemIndex) => (
+                <Link 
+                  key={`menuMobile${itemIndex}`}
+                  href={item.url} 
+                  className="text-gray-700 hover:text-green-600 transition-colors"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {item.title}
+                </Link>
+              ))
+              }
             </div>
           </nav>
         )}

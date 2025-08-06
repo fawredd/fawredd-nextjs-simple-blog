@@ -19,7 +19,7 @@ export default async function SidebarServer() {
         <CardContent>
           <ul className="space-y-3">
             {recentPosts.map((post) => (
-              <li key={post.id}>
+              <li key={`post${post.id}`}>
                 <Link 
                   href={`/blog/${post.slug}`}
                   className="text-sm text-gray-600 hover:text-green-600 transition-colors"
@@ -40,7 +40,7 @@ export default async function SidebarServer() {
         <CardContent>
           <ul className="space-y-2">
             {categories.map((category) => (
-              <li key={category.id}>
+              <li key={`category${category.id}`}>
                 <Link 
                   href={`/categoria/${category.slug}`}
                   className="text-sm text-gray-600 hover:text-green-600 transition-colors"
@@ -62,7 +62,7 @@ export default async function SidebarServer() {
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
               <Link
-                key={tag.id}
+                key={`tag${tag.id}`}
                 href={`/etiqueta/${tag.slug}`}
                 className="inline-block px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded hover:bg-green-100 hover:text-green-600 transition-colors"
               >

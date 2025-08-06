@@ -1,7 +1,7 @@
 -- Insert default admin user
 INSERT INTO users (email, name, password_hash, role, created_at, updated_at)
 VALUES (
-    'admin@etercell.com',
+    'test@test.com',
     'Admin User',
     '$2a$12$h7V7TqCY4785/ZLh9ojwruJquDEnMQNVrsrqf/tVCz5CxFaT7z.Bi', -- password: admin123
     'admin',
