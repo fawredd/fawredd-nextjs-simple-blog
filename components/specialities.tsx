@@ -1,4 +1,5 @@
 import { mainSpecialities } from "@/lib/config"
+import parser from "html-react-parser"
 
 export default async function Specialities(){
     return (
@@ -20,7 +21,7 @@ export default async function Specialities(){
                 </h3>
                 {specialty.description && (
                   <p className="text-gray-600 text-sm">
-                    {specialty.description}
+                    {parser(specialty.description)}
                   </p>
                 )}
               </div>

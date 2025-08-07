@@ -11,6 +11,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import TagSelector from '@/components/tagSelector'
+import { Tag } from '@/lib/database'
 
 interface BlogPost {
   id: number
@@ -28,6 +30,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
   const [isLoading, setIsLoading] = useState(false)
   const [isFetching, setIsFetching] = useState(true)
   const router = useRouter()
+  const [selectedValues, setSelectedValues] = useState<string[]>([]);
 
   useEffect(() => {
     params.then(setResolvedParams)
@@ -47,6 +50,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
       if (response.ok) {
         const post = await response.json()
         setFormData(post)
+        setSelectedValues(post.tags.map((tag:Tag)=>`${tag.id}`))
       } else {
         setError('Post no encontrado')
         toast.error('Post no encontrado')
@@ -62,18 +66,20 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
     if (!formData || !resolvedParams?.id) return
 
     setIsLoading(true)
     setError('')
-
+    //Build payload including tagsId
+    const payload = { ...formData, tagsIds: selectedValues }
     try {
       const response = await fetch(`/api/admin/posts/${resolvedParams.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       })
 
       const data = await response.json()
@@ -193,6 +199,10 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
                   rows={15}
                   className="font-mono text-sm"
                 />
+              </div>
+              <div>
+                <span>Tags: </span>
+                <TagSelector selectedValues={selectedValues} setSelectedValues={setSelectedValues} />
               </div>
 
               <div className="flex items-center space-x-2">

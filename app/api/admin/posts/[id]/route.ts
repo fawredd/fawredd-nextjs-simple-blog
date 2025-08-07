@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { verifyToken } from '@/lib/auth'
 import { BlogService } from '@/lib/blog-service'
 import { cookies } from 'next/headers'
+import { json } from 'stream/consumers'
 
 export async function GET(
   request: NextRequest,
@@ -22,12 +23,13 @@ export async function GET(
 
     const { id } = await params
     const post = await BlogService.getPostById(parseInt(id))
-
+    const tags = await BlogService.getTagsOfPostById(parseInt(id))
+    
     if (!post) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 })
     }
-
-    return NextResponse.json(post)
+    const payload = {...post,tags: tags}
+    return NextResponse.json(payload)
   } catch (error) {
     console.error('Error fetching post:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
@@ -52,8 +54,9 @@ export async function PUT(
     }
 
     const { id } = await params
-    const { title, content, excerpt, published, featured_image } = await request.json()
-
+    const data = await request.json()
+    const { title, content, excerpt, published, featured_image, tagsIds } = data
+        
     if (!title || !content) {
       return NextResponse.json(
         { error: 'Title and content are required' },
@@ -68,13 +71,16 @@ export async function PUT(
       content,
       excerpt,
       published: published || false,
-      featured_image
+      featured_image,
     })
 
     if (!post) {
       return NextResponse.json({ error: 'Failed to update post' }, { status: 500 })
     }
 
+    //Creo en base de datos la relacion de tags con el post
+    const createPostTags = await BlogService.createTags(post.id,tagsIds)
+    
     return NextResponse.json(post)
   } catch (error) {
     console.error('Error updating post:', error)

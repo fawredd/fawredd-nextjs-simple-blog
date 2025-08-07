@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Menu, X } from 'lucide-react'
-import { menuItems, headerLogo} from '@/lib/config'
+import { menuItems, logo} from '@/lib/config'
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
@@ -16,8 +16,8 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
             <Image
-              src={headerLogo.image}
-              alt={headerLogo.alt}
+              src={logo.image}
+              alt={logo.alt}
               width={116}
               height={40}
               className="h-10"

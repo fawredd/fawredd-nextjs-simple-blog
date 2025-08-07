@@ -120,26 +120,6 @@ export default async function EspecialidadesPage() {
                 </Card>
               ))}
             </div>
-
-            {/* Call to Action */}
-            <Card className="bg-green-600 text-white">
-              <CardContent className="p-8 text-center">
-                <h2 className="text-3xl font-bold mb-4">
-                  ¿Listo para comenzar tu tratamiento?
-                </h2>
-                <p className="text-xl mb-6 opacity-90">
-                  Nuestro equipo de especialistas está preparado para ofrecerte la mejor atención personalizada.
-                </p>
-                <div className="space-x-4">
-                  <Button className="bg-white text-green-600 hover:bg-gray-100">
-                    Agendar Consulta
-                  </Button>
-                  <Button variant="outline" className="border-white text-white hover:bg-white hover:text-green-600">
-                    Más Información
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
           </div>
 
           {/* Sidebar */}

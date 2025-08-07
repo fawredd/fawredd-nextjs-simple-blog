@@ -4,7 +4,7 @@ import Footer from "@/components/footer";
 import SidebarServer from "@/components/sidebar-server";
 import Hero from "@/components/hero";
 import FeaturePost from "@/components/featurePost";
-import Article from "@/components/Article";
+import Article from "@/components/article";
 import Specialities from "@/components/specialities";
 
 export default async function HomePage() {

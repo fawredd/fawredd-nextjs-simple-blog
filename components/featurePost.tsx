@@ -27,7 +27,7 @@ export default async function FeaturePost() {
             className="object-cover absolute inset-0 z-0"
             priority
           />
-          <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center z-1">
+          <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center z-1">
             <div className="text-center text-white p-6 max-w-3xl">
               <h2 className="text-3xl md:text-4xl font-bold mb-4 drop-shadow-sm">
                 {featuredPost.title}

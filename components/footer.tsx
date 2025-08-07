@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import {brand, headerLogo, footer, contactData, menuItems } from '@/lib/config'
+import {brand, logo, footer, contactData, menuItems } from '@/lib/config'
 export default function Footer() {
   return (
     <footer className="bg-gray-900 text-white">
@@ -10,8 +10,8 @@ export default function Footer() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
               <Image
-                src={headerLogo.image}
-                alt={headerLogo.alt}
+                src={logo.image}
+                alt={logo.alt}
                 width={116}
                 height={40}
                 className="h-10"

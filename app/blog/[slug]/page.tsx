@@ -5,12 +5,13 @@ import Link from "next/link"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import SidebarServer from "@/components/sidebar-server"
-import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { BlogService } from "@/lib/blog-service"
 import { ArrowLeft, Calendar, User } from 'lucide-react'
 import { brand } from "@/lib/config"
+import parser from 'html-react-parser'
+import RelatedArticles from "@/components/relatedArticles"
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>
@@ -23,6 +24,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) {
     notFound()
   }
+  const tags = await BlogService.getTagsOfPostById(post.id)
+  const tagsSlugArray = tags.map((item)=>item.slug)
 
   return (
     <div className="min-h-screen bg-white">
@@ -95,8 +98,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {/* Article Content */}
               <div 
                 className="prose prose-lg max-w-none prose-headings:text-green-600 prose-a:text-green-600 prose-a:no-underline hover:prose-a:underline prose-strong:text-gray-900 prose-blockquote:border-green-600 prose-blockquote:bg-green-50 prose-blockquote:p-4 prose-blockquote:rounded-r-lg"
-                dangerouslySetInnerHTML={{ __html: post.content }}
-              />
+              >
+                {parser(post.content)}
+              </div>
 
               {/* Article Footer */}
               <footer className="mt-12 pt-8 border-t border-gray-200">
@@ -115,60 +119,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </div>
               </footer>
             </article>
-
-            {/* Related Articles Section */}
-            <Card className="mt-12">
-              <CardContent className="p-8">
-                <h2 className="text-2xl font-bold text-green-600 mb-6">
-                  Artículos Relacionados
-                </h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Placeholder for related articles */}
-                  <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                    <h3 className="font-semibold text-gray-800 mb-2">
-                      Avances en Terapia Celular
-                    </h3>
-                    <p className="text-sm text-gray-600 mb-3">
-                      Descubre las últimas innovaciones en medicina regenerativa...
-                    </p>
-                    <Link href="/blog/avances-terapia-celular" className="text-green-600 text-sm hover:underline">
-                      Leer más →
-                    </Link>
-                  </div>
-                  <div className="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
-                    <h3 className="font-semibold text-gray-800 mb-2">
-                      Casos de Éxito en Traumatología
-                    </h3>
-                    <p className="text-sm text-gray-600 mb-3">
-                      Conoce historias reales de pacientes que han mejorado...
-                    </p>
-                    <Link href="/blog/casos-exito-traumatologia" className="text-green-600 text-sm hover:underline">
-                      Leer más →
-                    </Link>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Call to Action */}
-            <Card className="mt-8 bg-green-600 text-white">
-              <CardContent className="p-8 text-center">
-                <h2 className="text-2xl font-bold mb-4">
-                  ¿Interesado en nuestros tratamientos?
-                </h2>
-                <p className="text-lg mb-6 opacity-90">
-                  Agenda una consulta personalizada con nuestros especialistas en medicina regenerativa.
-                </p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Button className="bg-white text-green-600 hover:bg-gray-100">
-                    Agendar Consulta
-                  </Button>
-                  <Button variant="outline" className="border-white text-white hover:bg-white hover:text-green-600">
-                    Más Información
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            {tagsSlugArray.length > 0 && (
+               <RelatedArticles tagsSlugArray={tagsSlugArray} />
+           )}
           </div>
 
           {/* Sidebar */}
