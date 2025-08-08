@@ -17,18 +17,12 @@ export default function TagInput({ initialTags = [], onTagsChange }: TagInputPro
 
   useEffect(() => {
     const loadSuggestions = async () => {
-      if (inputValue.trim() === '') {
-        setSuggestions([]);
-        return;
-      }
-
       const results = await GetTagsList()
       const filtered = results.filter((tag) => !tags.includes(tag));
       setSuggestions(filtered);
     };
-
     loadSuggestions();
-  }, [inputValue, tags]);
+  }, [tags]);
 
   const addTag = (tag: string) => {
     if (tag.trim() && !tags.includes(tag)) {
@@ -82,6 +76,7 @@ export default function TagInput({ initialTags = [], onTagsChange }: TagInputPro
           value={inputValue}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
+          onFocus={() => setTimeout(() => setShowSuggestions(true), 150)}
           onBlur={() => setTimeout(() => setShowSuggestions(false), 150)}
           placeholder="Type a tag..."
           className="border border-gray-400 px-2 py-1 text-sm focus:outline-none focus:ring focus:border-blue-400"
@@ -91,7 +86,7 @@ export default function TagInput({ initialTags = [], onTagsChange }: TagInputPro
           <div className="absolute top-full left-0 w-full mt-1 border border-black bg-white max-h-40 overflow-y-auto z-10 shadow">
             {suggestions.map((sugg, i) => (
               <div
-                key={i}
+                key={`suggestion${i}`}
                 onClick={() => addTag(sugg)}
                 className="px-3 py-2 hover:bg-gray-100 cursor-pointer font-semibold text-sm"
               >

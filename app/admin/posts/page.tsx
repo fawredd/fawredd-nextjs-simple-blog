@@ -1,69 +1,71 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import Link from 'next/link'
-import { toast } from 'sonner'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Trash2, Edit, Plus } from 'lucide-react'
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Trash2, Edit, Plus } from "lucide-react";
 
 interface BlogPost {
-  id: number
-  title: string
-  slug: string
-  excerpt?: string
-  published: boolean
-  created_at: string
-  author_name?: string
+  id: number;
+  title: string;
+  slug: string;
+  excerpt?: string;
+  published: boolean;
+  created_at: string;
+  author_name?: string;
+  featured_image?: string;
 }
 
 export default function AdminPostsPage() {
-  const [posts, setPosts] = useState<BlogPost[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [posts, setPosts] = useState<BlogPost[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetchPosts()
-  }, [])
+    fetchPosts();
+  }, []);
 
   const fetchPosts = async () => {
     try {
-      const response = await fetch('/api/admin/posts')
+      const response = await fetch("/api/admin/posts");
       if (response.ok) {
-        const data = await response.json()
-        setPosts(data)
+        const data = await response.json();
+        setPosts(data);
       } else {
-        toast.error('Error al cargar posts')
+        toast.error("Error al cargar posts");
       }
     } catch (error) {
-      console.error('Error fetching posts:', error)
-      toast.error('Error de conexión al cargar posts')
+      console.error("Error fetching posts:", error);
+      toast.error("Error de conexión al cargar posts");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const handleDelete = async (id: number, title: string) => {
-    if (!confirm(`¿Estás seguro de que quieres eliminar "${title}"?`)) return
+    if (!confirm(`¿Estás seguro de que quieres eliminar "${title}"?`)) return;
 
     try {
       const response = await fetch(`/api/admin/posts/${id}`, {
-        method: 'DELETE',
-      })
+        method: "DELETE",
+      });
 
       if (response.ok) {
-        setPosts(posts.filter(post => post.id !== id))
-        toast.success('Post eliminado', {
-          description: `"${title}" ha sido eliminado correctamente`
-        })
+        setPosts(posts.filter((post) => post.id !== id));
+        toast.success("Post eliminado", {
+          description: `"${title}" ha sido eliminado correctamente`,
+        });
       } else {
-        toast.error('Error al eliminar el post')
+        toast.error("Error al eliminar el post");
       }
     } catch (error) {
-      console.error('Error deleting post:', error)
-      toast.error('Error de conexión al eliminar el post')
+      console.error("Error deleting post:", error);
+      toast.error("Error de conexión al eliminar el post");
     }
-  }
+  };
 
   if (isLoading) {
     return (
@@ -73,14 +75,16 @@ export default function AdminPostsPage() {
           <p>Cargando posts...</p>
         </div>
       </div>
-    )
+    );
   }
 
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="container mx-auto px-4 py-8">
         <div className="flex justify-between items-center mb-8">
-          <h1 className="text-3xl font-bold text-green-600">Gestión de Posts</h1>
+          <h1 className="text-3xl font-bold text-green-600">
+            Gestión de Posts
+          </h1>
           <div className="space-x-4">
             <Link href="/admin">
               <Button variant="outline">Volver al Admin</Button>
@@ -114,17 +118,27 @@ export default function AdminPostsPage() {
                     <div>
                       <CardTitle className="text-xl">{post.title}</CardTitle>
                       <p className="text-sm text-gray-500 mt-1">
-                        Por {post.author_name} • {new Date(post.created_at).toLocaleDateString()}
+                        Por {post.author_name} •{" "}
+                        {new Date(post.created_at).toLocaleDateString()}
                       </p>
                     </div>
                     <Badge variant={post.published ? "default" : "secondary"}>
-                      {post.published ? 'Publicado' : 'Borrador'}
+                      {post.published ? "Publicado" : "Borrador"}
                     </Badge>
                   </div>
                 </CardHeader>
                 <CardContent>
                   {post.excerpt && (
-                    <p className="text-gray-600 mb-4">{post.excerpt}</p>
+                    <div className="flex flex-1 gap-2 relative">
+                      <Image
+                        src={post.featured_image || "/placeholder.svg"}
+                        alt={post.title}
+                        className="rounded-md aspect-square w-auto max-w-20 h-auto mr-1 mb-4"
+                        width={40}
+                        height={40}
+                      />
+                      <p className="text-gray-600 mb-4">{post.excerpt}</p>
+                    </div>
                   )}
                   <div className="flex space-x-2">
                     <Link href={`/admin/posts/${post.id}/edit`}>
@@ -156,5 +170,5 @@ export default function AdminPostsPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }

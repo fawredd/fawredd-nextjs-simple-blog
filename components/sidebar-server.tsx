@@ -14,17 +14,17 @@ export default async function SidebarServer() {
       {/* Recent Posts */}
       <Card>
         <CardHeader>
-          <CardTitle className="text-green-600">Artículos Recientes</CardTitle>
+          <CardTitle className="text-green-600 text-center">Artículos Recientes</CardTitle>
         </CardHeader>
         <CardContent>
-          <ul className="space-y-3">
+          <ul className="space-y-3 w-full mx-1">
             {recentPosts.map((post) => (
-              <li key={`post${post.id}`}>
+              <li key={`recentPost${post.id}`} className="flex-shrink-0">
                 <Link 
                   href={`/blog/${post.slug}`}
-                  className="text-sm text-gray-600 hover:text-green-600 transition-colors"
+                  className="w-full block whitespace-nowrap overflow-hidden text-ellipsis text-sm text-white hover:text-slate-400 transition-colors border bg-green-600 p-2 rounded-lg"
                 >
-                  {post.title}
+                  {post.title.substring(0,40)}...
                 </Link>
               </li>
             ))}
@@ -37,13 +37,13 @@ export default async function SidebarServer() {
         <CardHeader>
           <CardTitle className="text-green-600">Categorías</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="">
           <ul className="space-y-2">
             {categories.map((category) => (
-              <li key={`category${category.id}`}>
+              <li key={`sidebarCategory${category.id}`}>
                 <Link 
-                  href={`/categoria/${category.slug}`}
-                  className="text-sm text-gray-600 hover:text-green-600 transition-colors"
+                  href={`/blog/categoria/${category.slug}`}
+                  className="text-sm text-gray-600 hover:text-green-600 transition-colors overflow-hidden whitespace-nowrap"
                 >
                   {category.name}
                 </Link>
@@ -63,7 +63,7 @@ export default async function SidebarServer() {
             {tagsResult.map((tag,tagIndex) => (
               <Link
                 key={`sidebarTag${tagIndex}`}
-                href={`/etiqueta/${tag}`}
+                href={`/blog/etiqueta/${tag}`}
                 className="inline-block px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded hover:bg-green-100 hover:text-green-600 transition-colors"
               >
                 {tag}

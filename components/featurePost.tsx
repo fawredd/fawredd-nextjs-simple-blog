@@ -7,7 +7,7 @@ import { Suspense } from "react";
 
 export default async function FeaturePost() {
   const posts = await BlogService.getAllPosts(true);
-  const featuredPost = posts[0];
+  const featuredPost = posts[Math.floor(Math.random() * posts.length)];
   return (
     <Suspense
       fallback={
@@ -16,23 +16,23 @@ export default async function FeaturePost() {
     >
       {/* Featured Post */}
       {featuredPost && (
-        <Card className={`mb-8 h-96 overflow-hidden relative`}>
+        <Card className={`mb-8 h-96 overflow-hidden relative border-none`}>
           <Image
             src={
               featuredPost.featured_image ||
-              "/placeholder.svg?height=400&width=800&query=medical+research"
+              "/placeholder.svg"
             }
             alt={featuredPost.title}
             fill
             className="object-cover absolute inset-0 z-0"
             priority
           />
-          <div className="absolute inset-0 bg-black bg-opacity-60 flex items-center justify-center z-1">
-            <div className="text-center text-white p-6 max-w-3xl">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 drop-shadow-sm">
+          <div className="absolute inset-0 bg-white bg-opacity-70 flex items-center justify-center z-1 bg-gradient-to-b from-transparent to-white">
+            <div className="text-center p-6 max-w-3xl">
+              <h2 className="text-green-600 text-3xl md:text-4xl font-bold mb-4 text-shadow-slate-600 text-shadow-lg/40">
                 {featuredPost.title}
               </h2>
-              <p className="text-lg mb-6 opacity-90 drop-shadow-md">
+              <p className="text-base mb-6 opacity-90 shadow-slate-600 text-shadow-lg/40">
                 {featuredPost.excerpt}
               </p>
               <Link href={`/blog/${featuredPost.slug}`}>

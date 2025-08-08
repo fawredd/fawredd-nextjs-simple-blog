@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { toast } from 'sonner'
@@ -11,6 +11,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import TagInput from '@/components/tagInput'
+import GetTagsList from '@/actions/BlogActions'
 
 export default function NewPostPage() {
   const [formData, setFormData] = useState({
@@ -23,19 +25,34 @@ export default function NewPostPage() {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const [tags,setTags] = useState<string[]>([])
+
+  useEffect(()=>{
+      const fetchTags = async ()=> {
+        try {
+          const fetchedTags = await GetTagsList()
+          setTags(fetchedTags)
+        }
+        catch (e){
+          toast.error(`Could not fetch tags. ${e}`)
+        }
+      }
+      fetchTags()
+
+  },[])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
     setError('')
-
+    const payload = { ...formData, tags: tags }
     try {
       const response = await fetch('/api/admin/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(payload),
       })
 
       const data = await response.json()
@@ -131,7 +148,10 @@ export default function NewPostPage() {
                   className="font-mono text-sm"
                 />
               </div>
-
+              <div>
+                <span>Tags: </span>
+                <TagInput initialTags={tags} onTagsChange={(tags)=>setTags(tags)}/>
+              </div>
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="published"

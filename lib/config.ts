@@ -67,16 +67,16 @@ export const footer = {
 
 export const contactData = {
     address:{ 
-        label:'📍 Dirección:',
-        text:'calle 1234'
+        label:'',
+        text:''
     },
     phone:{ 
-        label:'📞 Teléfono:',
-        text:'+5455555555'
+        label:'Whatsapp:',
+        text:'+5491137840587'
     },
     email:{ 
-        label:'✉️ Email:',
-        text:'test@test.com'
+        label:'',
+        text:''
     }
 }
 
@@ -86,4 +86,6 @@ export const brandKeywords =  [
     "células madre",
     "traumatología",
     "neurología",
+    "secretomas",
+    "biomedicina"
   ]

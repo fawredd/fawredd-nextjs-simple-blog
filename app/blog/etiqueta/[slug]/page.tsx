@@ -10,8 +10,14 @@ import { Badge } from "@/components/ui/badge";
 import { BlogService } from "@/lib/blog-service";
 import { brand, blogIntro } from "@/lib/config";
 
-export default async function BlogPage() {
-  const posts = await BlogService.getAllPosts(true);
+interface BlogPostPageProps {
+  params: Promise<{ slug: string }>;
+}
+
+export default async function BlogPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
+  const decodedSlug = decodeURIComponent(slug)
+  const posts = await BlogService.getPostsByTagSlug([decodedSlug]);
 
   return (
     <div className="min-h-screen bg-white">
@@ -27,7 +33,7 @@ export default async function BlogPage() {
                 {brand} Blog
               </h1>
               <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                {blogIntro}
+                Etiqueta: {decodedSlug}
               </p>
             </div>
 
@@ -47,12 +53,12 @@ export default async function BlogPage() {
               ) : (
                 posts.map((post) => (
                   <Card
-                    key={post.id}
+                    key={`postListado${post.id}`}
                     className="overflow-hidden hover:shadow-lg transition-shadow"
                   >
                     <div className="md:flex">
                       {/* Post Image */}
-                      <div className="md:w-1/3 ml-4">
+                      <div className="md:w-1/3">
                         <div className="relative h-64 md:h-full">
                           <Image
                             src={
@@ -61,7 +67,7 @@ export default async function BlogPage() {
                             }
                             alt={post.title}
                             fill
-                            className="object-cover rounded-lg"
+                            className="object-cover"
                           />
                         </div>
                       </div>

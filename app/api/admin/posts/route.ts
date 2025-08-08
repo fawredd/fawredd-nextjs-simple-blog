@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
     }
 
-    const { title, content, excerpt, published, featured_image } = await request.json()
+    const { title, content, excerpt, published, featured_image,tags } = await request.json()
 
     if (!title || !content) {
       return NextResponse.json(
@@ -56,7 +56,8 @@ export async function POST(request: NextRequest) {
       excerpt,
       published: published || false,
       author_id: user.id,
-      featured_image
+      featured_image,
+      tags
     })
 
     if (!post) {

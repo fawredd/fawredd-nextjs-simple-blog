@@ -115,7 +115,7 @@ export class BlogService {
     try {
       const posts = await sql`
         INSERT INTO blog_posts (title, slug, content, excerpt, published, author_id, featured_image, tags, created_at, updated_at)
-        VALUES (${data.title}, ${data.slug}, ${data.content}, ${data.excerpt || ""}, ${data.published}, ${data.author_id}, ${data.featured_image || ""},${data.tags || []} NOW(), NOW())
+        VALUES (${data.title}, ${data.slug}, ${data.content}, ${data.excerpt || ""}, ${data.published}, ${data.author_id}, ${data.featured_image || ""},${data.tags || []}, NOW(), NOW())
         RETURNING *
       `;
 
@@ -176,16 +176,11 @@ export class BlogService {
   ): Promise<BlogPost[]> {
     try {
       const posts = await sql`
-      SELECT
-        T1.id,
-        T1.title,
-        T1.slug,
-        T1.featured_image,
-        T1.created_at
-      FROM blog_posts AS T1
-      WHERE
-        T1.tags @> ${tagSlug}
-        AND T1.published = TRUE;
+            SELECT p.*, u.name as author_name
+            FROM blog_posts p
+            JOIN users u ON p.author_id = u.id
+            WHERE p.published = true AND p.tags @> ${tagSlug}
+            ORDER BY p.created_at DESC
       `;
       return posts as BlogPost[];
     } catch (error) {
