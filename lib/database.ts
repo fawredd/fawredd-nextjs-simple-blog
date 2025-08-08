@@ -28,6 +28,7 @@ export interface BlogPost {
   created_at: string
   updated_at: string
   author_name?: string
+  tags?: string[]
 }
 
 export interface Category {

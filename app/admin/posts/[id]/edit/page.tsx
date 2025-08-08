@@ -11,8 +11,8 @@ import { Textarea } from '@/components/ui/textarea'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import TagSelector from '@/components/tagSelector'
 import { Tag } from '@/lib/database'
+import TagInput from '@/components/tagInput'
 
 interface BlogPost {
   id: number
@@ -30,7 +30,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
   const [isLoading, setIsLoading] = useState(false)
   const [isFetching, setIsFetching] = useState(true)
   const router = useRouter()
-  const [selectedValues, setSelectedValues] = useState<string[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
     params.then(setResolvedParams)
@@ -50,7 +50,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
       if (response.ok) {
         const post = await response.json()
         setFormData(post)
-        setSelectedValues(post.tags.map((tag:Tag)=>`${tag.id}`))
+        setTags(post.tags)
       } else {
         setError('Post no encontrado')
         toast.error('Post no encontrado')
@@ -71,8 +71,8 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
 
     setIsLoading(true)
     setError('')
-    //Build payload including tagsId
-    const payload = { ...formData, tagsIds: selectedValues }
+    //Build payload including tags
+    const payload = { ...formData, tags: tags }
     try {
       const response = await fetch(`/api/admin/posts/${resolvedParams.id}`, {
         method: 'PUT',
@@ -202,7 +202,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
               </div>
               <div>
                 <span>Tags: </span>
-                <TagSelector selectedValues={selectedValues} setSelectedValues={setSelectedValues} />
+                <TagInput initialTags={tags} onTagsChange={(tags)=>setTags(tags)}/>
               </div>
 
               <div className="flex items-center space-x-2">

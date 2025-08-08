@@ -23,13 +23,12 @@ export async function GET(
 
     const { id } = await params
     const post = await BlogService.getPostById(parseInt(id))
-    const tags = await BlogService.getTagsOfPostById(parseInt(id))
-    
+        
     if (!post) {
       return NextResponse.json({ error: 'Post not found' }, { status: 404 })
     }
-    const payload = {...post,tags: tags}
-    return NextResponse.json(payload)
+    
+    return NextResponse.json(post)
   } catch (error) {
     console.error('Error fetching post:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
@@ -55,7 +54,7 @@ export async function PUT(
 
     const { id } = await params
     const data = await request.json()
-    const { title, content, excerpt, published, featured_image, tagsIds } = data
+    const { title, content, excerpt, published, featured_image, tags } = data
         
     if (!title || !content) {
       return NextResponse.json(
@@ -72,15 +71,13 @@ export async function PUT(
       excerpt,
       published: published || false,
       featured_image,
+      tags
     })
 
     if (!post) {
       return NextResponse.json({ error: 'Failed to update post' }, { status: 500 })
     }
 
-    //Creo en base de datos la relacion de tags con el post
-    const createPostTags = await BlogService.createTags(post.id,tagsIds)
-    
     return NextResponse.json(post)
   } catch (error) {
     console.error('Error updating post:', error)

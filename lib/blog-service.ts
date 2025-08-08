@@ -92,14 +92,10 @@ export class BlogService {
     }
   }
 
-  static async getTags(): Promise<Tag[]> {
+  static async getTags(): Promise<string[]> {
     try {
-      const tags = await sql`
-        SELECT * FROM tags
-        ORDER BY name ASC
-      `;
-
-      return tags as Tag[];
+      const result = await sql`SELECT DISTINCT unnest(tags) as tags FROM blog_posts ORDER BY tags ASC;`;
+      return (result.length > 0)? result.map((tag)=>tag.tags) : []
     } catch (error) {
       console.error("Error fetching tags:", error);
       return [];
@@ -114,15 +110,12 @@ export class BlogService {
     published: boolean;
     author_id: number;
     featured_image?: string;
+    tags?: string[];
   }): Promise<BlogPost | null> {
     try {
       const posts = await sql`
-        INSERT INTO blog_posts (title, slug, content, excerpt, published, author_id, featured_image, created_at, updated_at)
-        VALUES (${data.title}, ${data.slug}, ${data.content}, ${
-        data.excerpt || ""
-      }, ${data.published}, ${data.author_id}, ${
-        data.featured_image || ""
-      }, NOW(), NOW())
+        INSERT INTO blog_posts (title, slug, content, excerpt, published, author_id, featured_image, tags, created_at, updated_at)
+        VALUES (${data.title}, ${data.slug}, ${data.content}, ${data.excerpt || ""}, ${data.published}, ${data.author_id}, ${data.featured_image || ""},${data.tags || []} NOW(), NOW())
         RETURNING *
       `;
 
@@ -142,6 +135,7 @@ export class BlogService {
       excerpt?: string;
       published: boolean;
       featured_image?: string;
+      tags?: string[]
     }
   ): Promise<BlogPost | null> {
     try {
@@ -153,6 +147,7 @@ export class BlogService {
             excerpt = ${data.excerpt || ""}, 
             published = ${data.published}, 
             featured_image = ${data.featured_image || ""},
+            tags = ${data.tags || []},
             updated_at = NOW()
         WHERE id = ${id}
         RETURNING *
@@ -185,14 +180,11 @@ export class BlogService {
         T1.id,
         T1.title,
         T1.slug,
+        T1.featured_image,
         T1.created_at
       FROM blog_posts AS T1
-      JOIN post_tags AS T2
-        ON T1.id = T2.post_id
-      JOIN tags AS T3
-        ON T2.tag_id = T3.id
       WHERE
-        T3.slug = ${tagSlug}
+        T1.tags @> ${tagSlug}
         AND T1.published = TRUE;
       `;
       return posts as BlogPost[];
@@ -202,23 +194,19 @@ export class BlogService {
     }
   }
 
-  static async getTagsOfPostById(id: number): Promise<Tag[]> {
+  static async getTagsOfPostById(id: number): Promise<string[]> {
     try {
-      const tags = await sql`
+      const result = await sql`
       SELECT
-          T3.id,
-          T3.name,
-          T3.slug
+          tags
       FROM
           blog_posts AS T1
-      JOIN
-          post_tags AS T2 ON T1.id = T2.post_id
-      JOIN
-          tags AS T3 ON T2.tag_id = T3.id
       WHERE
           T1.id = ${id} AND T1.published = TRUE;
       `;
-      return tags as Tag[];
+    // result[0]?.tags is the string[] you want, or [] if not found
+    console.log('getTagsOfPostById',JSON.stringify(result))
+    return result.length > 0 && Array.isArray(result[0].tags) ? result[0].tags : [];
     } catch (error) {
       console.error("Error fetching related tags:", error);
       return [];

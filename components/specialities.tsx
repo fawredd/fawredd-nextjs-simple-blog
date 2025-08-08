@@ -20,9 +20,9 @@ export default async function Specialities(){
                   {specialty.title}
                 </h3>
                 {specialty.description && (
-                  <p className="text-gray-600 text-sm">
+                  <div className="text-gray-600 text-sm">
                     {parser(specialty.description)}
-                  </p>
+                  </div>
                 )}
               </div>
             ))}

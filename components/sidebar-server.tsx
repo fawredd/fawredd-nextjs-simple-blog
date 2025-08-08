@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 
 export default async function SidebarServer() {
-  const [recentPosts, categories, tags] = await Promise.all([
+  const [recentPosts, categories, tagsResult] = await Promise.all([
     BlogService.getRecentPosts(5),
     BlogService.getCategories(),
     BlogService.getTags()
@@ -60,13 +60,13 @@ export default async function SidebarServer() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-2">
-            {tags.map((tag) => (
+            {tagsResult.map((tag,tagIndex) => (
               <Link
-                key={`tag${tag.id}`}
-                href={`/etiqueta/${tag.slug}`}
+                key={`sidebarTag${tagIndex}`}
+                href={`/etiqueta/${tag}`}
                 className="inline-block px-2 py-1 text-xs bg-gray-100 text-gray-600 rounded hover:bg-green-100 hover:text-green-600 transition-colors"
               >
-                {tag.name}
+                {tag}
               </Link>
             ))}
           </div>

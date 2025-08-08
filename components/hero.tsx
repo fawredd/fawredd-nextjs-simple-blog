@@ -17,11 +17,11 @@ export default async function Hero() {
           Tu navegador no admite el elemento de video.
         </video>
         <div className="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center">
-          <div className="text-center text-white p-6 max-w-4xl bg-black bg-opacity-30 rounded-md"> 
-            <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              <Image src={heroSection.message.imageUrl} alt={heroSection.message.imageAlt} width={200} height={50} className="mx-auto drop-shadow-sm" />
+          <div className="text-center text-white p-6 max-w-4xl bg-black bg-opacity-40 rounded-md"> 
+            <h1 className="mb-6">
+              <Image src={heroSection.message.imageUrl} alt={heroSection.message.imageAlt} width={200} height={50} className="mx-auto filter drop-shadow-white drop-shadow-md rounded-lg " />
             </h1>
-            <p className="text-xl md:text-2xl mb-8 opacity-90 drop-shadow-sm">
+            <p className="text-base md:text-xl mb-8 filter drop-shadow-sm">
               {heroSection.message.text}
             </p>
 

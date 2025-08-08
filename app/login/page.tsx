@@ -65,7 +65,7 @@ export default function LoginPage() {
       <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-2xl text-center text-green-600">
-            Iniciar Sesión - ETERCELL
+            Iniciar Sesión
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -78,7 +78,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
-                placeholder="admin@etercell.com"
+                placeholder="test@test.com"
               />
             </div>
             <div>
