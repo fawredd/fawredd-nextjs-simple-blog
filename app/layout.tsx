@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { Toaster } from "sonner";
 import "./globals.css";
 import { brand, footer, brandKeywords } from "@/lib/config"
+import { Analytics } from "@vercel/analytics/next"
 
 export const metadata: Metadata = {
   title: `${brand} - Medicina Regenerativa`,
@@ -38,7 +38,7 @@ html {
       </head>
       <body>
         {children}
-        <Toaster position="top-right" richColors closeButton duration={4000} />
+        <Analytics />
       </body>
     </html>
   );
