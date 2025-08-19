@@ -11,7 +11,7 @@ export const menuItems = [
 ];
 
 export const logo = {
-  image: "/assets/etercell-logo-h.png",
+  image: "/assets/Etercell-Logo-H.png",
   alt: "Etercell Logo",
 };
 
@@ -21,7 +21,7 @@ export const heroSection = {
     videoUrl: "/assets/IntroLow.mp4", // defined as video/mp4
   },
   message: {
-    imageUrl: "/assets/etercell-logo-nuevo.png",
+    imageUrl: "/assets/Etercell-logo-nuevo.png",
     imageAlt: "Etercell Logo",
     text: `Líderes en brindar soluciones innovadoras para restaurar y mejorar tejidos dañados. Nos centramos en medicina regenerativa especializada en medicina regenerativa, ofreciendo nuestros servicios para las terapias y tratamientos vanguardistas que promuevan la recuperación y la regeneración de tejidos y órganos dañados.`,
   },
