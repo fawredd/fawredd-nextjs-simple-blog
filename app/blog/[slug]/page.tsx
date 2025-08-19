@@ -30,7 +30,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
     <div className="min-h-screen bg-white">
       <Header />
 
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto my-16 px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Main Content */}
           <div className="flex-1">
@@ -50,7 +50,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               <header className="mb-8">
                 {/* Featured Image */}
                 {post.featured_image && (
-                  <div className="relative h-96 mb-8 rounded-lg overflow-hidden">
+                  <div className="relative h-24 md:h-96 mb-8 rounded-lg overflow-hidden">
                     <Image
                       src={post.featured_image || "/placeholder.svg"}
                       alt={post.title}
@@ -88,13 +88,13 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </div>
 
                 {/* Title */}
-                <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6 leading-tight">
+                <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
                   {post.title}
                 </h1>
 
                 {/* Excerpt */}
                 {post.excerpt && (
-                  <div className="text-xl text-gray-600 mb-8 leading-relaxed border-l-4 border-green-600 pl-6 bg-green-50 p-6 rounded-r-lg">
+                  <div className="text-base text-gray-600 mb-8 leading-relaxed border-l-4 border-green-600 pl-6 bg-green-50 p-6 rounded-r-lg">
                     {post.excerpt}
                   </div>
                 )}

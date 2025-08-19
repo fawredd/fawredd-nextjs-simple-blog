@@ -1,16 +1,16 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import Link from 'next/link'
-import Image from 'next/image'
-import { Button } from '@/components/ui/button'
-import { Menu, X } from 'lucide-react'
-import { menuItems, logo} from '@/lib/config'
+import { useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Menu, X } from "lucide-react";
+import { menuItems, logo } from "@/lib/config";
 export default function Header() {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
-    <header className="bg-white shadow-sm border-b">
+    <header className="bg-white shadow-sm border-b fixed top-0 left-0 right-0 z-20">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -28,11 +28,14 @@ export default function Header() {
           <nav className="hidden md:flex items-center space-x-8">
             {menuItems.length > 0 &&
               menuItems.map((item, itemIndex) => (
-                <Link key={`menu${itemIndex}`} href={item.url} className="text-gray-700 hover:text-green-600 transition-colors">
+                <Link
+                  key={`menu${itemIndex}`}
+                  href={item.url}
+                  className="text-gray-700 hover:text-green-600 transition-colors"
+                >
                   {item.title}
                 </Link>
-              ))
-            }
+              ))}
           </nav>
 
           {/* Mobile Menu Button */}
@@ -50,21 +53,20 @@ export default function Header() {
           <nav className="md:hidden py-4 border-t">
             <div className="flex flex-col space-y-4">
               {menuItems.length > 0 &&
-              menuItems.map((item, itemIndex) => (
-                <Link 
-                  key={`menuMobile${itemIndex}`}
-                  href={item.url} 
-                  className="text-gray-700 hover:text-green-600 transition-colors"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.title}
-                </Link>
-              ))
-              }
+                menuItems.map((item, itemIndex) => (
+                  <Link
+                    key={`menuMobile${itemIndex}`}
+                    href={item.url}
+                    className="text-gray-700 hover:text-green-600 transition-colors"
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {item.title}
+                  </Link>
+                ))}
             </div>
           </nav>
         )}
       </div>
     </header>
-  )
+  );
 }
