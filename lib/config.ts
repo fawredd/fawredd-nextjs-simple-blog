@@ -11,7 +11,7 @@ export const menuItems = [
 ];
 
 export const logo = {
-  image: "/assets/Etercell-Logo-H.png",
+  image: "/assets/EterCell-Logo-H.png",
   alt: "Etercell Logo",
 };
 
