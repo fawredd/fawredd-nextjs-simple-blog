@@ -2,8 +2,6 @@ import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import SidebarServer from "@/components/sidebar-server";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -27,8 +25,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
 
       <main className="container mx-auto my-16 px-4 py-8">
         <div className="flex flex-col lg:flex-row gap-8">
@@ -145,8 +141,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </div>
       </main>
 
-      <Footer />
-    </div>
   );
 }
 

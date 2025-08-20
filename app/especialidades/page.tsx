@@ -1,79 +1,12 @@
 import { Suspense } from "react"
-import Header from "@/components/header"
-import Footer from "@/components/footer"
 import SidebarServer from "@/components/sidebar-server"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-
-const specialties = [
-  {
-    title: "TRAUMATOLOGÍA",
-    description: "Solo determinados tejidos y órganos son capaces de regenerarse espontáneamente después de una enfermedad o trauma. Esta capacidad humana explora enfoques terapéuticos regenerativos para tratar diversas afecciones. Las células madre mesenquimales (MSC) se derivan de células madre adultas, son multipotentes y ejercen efectos antiinflamatorios e inmunomoduladores.",
-    applications: [
-      "Lesiones deportivas",
-      "Fracturas complejas",
-      "Regeneración de cartílago",
-      "Lesiones de ligamentos y tendones"
-    ]
-  },
-  {
-    title: "NEUROLOGÍA",
-    description: "La medicina regenerativa neurológica se enfoca en la restauración de la función del sistema nervioso mediante terapias celulares avanzadas y factores de crecimiento específicos.",
-    applications: [
-      "Enfermedades neurodegenerativas",
-      "Lesiones de médula espinal",
-      "Accidentes cerebrovasculares",
-      "Neuropatías periféricas"
-    ]
-  },
-  {
-    title: "ODONTOLOGÍA",
-    description: "Aplicación de terapias regenerativas en odontología para la restauración de tejidos dentales, periodontales y maxilofaciales.",
-    applications: [
-      "Regeneración periodontal",
-      "Implantología avanzada",
-      "Regeneración ósea maxilar",
-      "Tratamiento de ATM"
-    ]
-  },
-  {
-    title: "ESTÉTICA",
-    description: "Medicina estética regenerativa que utiliza células madre y factores de crecimiento para rejuvenecimiento facial y corporal.",
-    applications: [
-      "Rejuvenecimiento facial",
-      "Tratamiento de cicatrices",
-      "Regeneración capilar",
-      "Lifting no quirúrgico"
-    ]
-  },
-  {
-    title: "SALUD SEXUAL",
-    description: "Terapias regenerativas aplicadas a la medicina sexual para mejorar la función y calidad de vida sexual tanto en hombres como mujeres.",
-    applications: [
-      "Disfunción eréctil",
-      "Rejuvenecimiento vaginal",
-      "Incontinencia urinaria",
-      "Mejora de la sensibilidad"
-    ]
-  },
-  {
-    title: "CRIOPRESERVACIÓN",
-    description: "Conservación de células madre y tejidos a temperaturas ultra bajas para su uso futuro en terapias regenerativas personalizadas.",
-    applications: [
-      "Preservación de células madre",
-      "Banco de tejidos autólogos",
-      "Medicina personalizada",
-      "Terapias futuras"
-    ]
-  }
-]
+import { specialties } from "@/lib/config"
 
 export default async function EspecialidadesPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 my-16">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Main Content */}
           <div className="flex-1">
@@ -128,8 +61,5 @@ export default async function EspecialidadesPage() {
           </Suspense>
         </div>
       </main>
-
-      <Footer />
-    </div>
   )
 }

@@ -2,8 +2,6 @@
 
 import { useState } from "react"
 import { toast } from 'sonner'
-import Header from "@/components/header"
-import Footer from "@/components/footer"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -52,9 +50,6 @@ export default function ContactoPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-
       <main className="container mx-auto px-4 py-8">
         {/* Page Header */}
         <div className="text-center mb-12">
@@ -231,8 +226,5 @@ export default function ContactoPage() {
         </div>
 
       </main>
-
-      <Footer />
-    </div>
   )
 }

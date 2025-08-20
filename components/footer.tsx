@@ -31,10 +31,10 @@ export default function Footer() {
           {/* Quick Links */}
           <div>
             <h3 className="text-lg font-semibold mb-4 text-green-400">Enlaces Rápidos</h3>
-            <ul className="space-y-2">
+            <ul key="quickLinks" className="space-y-2">
               {menuItems.map((item, itemIndex)=>(
-                <li>
-                  <Link href={item.url} className="text-gray-300 hover:text-green-400 transition-colors">
+                <li key={`menuItem${itemIndex}`}>
+                  <Link key={`menuItemLink${itemIndex}`} href={item.url} className="text-gray-300 hover:text-green-400 transition-colors">
                     {item.title}
                   </Link>
               </li>  

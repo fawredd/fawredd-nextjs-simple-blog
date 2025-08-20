@@ -1,8 +1,6 @@
 import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import SidebarServer from "@/components/sidebar-server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -14,10 +12,8 @@ export default async function BlogPage() {
   const posts = await BlogService.getAllPosts(true);
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-
-      <main className="container mx-auto px-4 py-8">
+ 
+      <main className="container mx-auto px-4 py-8 my-16">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Main Content */}
           <div className="flex-1">
@@ -125,8 +121,5 @@ export default async function BlogPage() {
           </Suspense>
         </div>
       </main>
-
-      <Footer />
-    </div>
   );
 }

@@ -1,5 +1,5 @@
 import { sql } from "./database";
-import type { BlogPost, Category, PostTag, Tag } from "./database";
+import type { BlogPost, Category, PostTag } from "./database";
 
 export class BlogService {
   static async getAllPosts(publishedOnly = true): Promise<BlogPost[]> {

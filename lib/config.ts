@@ -1,6 +1,7 @@
-export const brand = 'Etercell'
-export const blogIntro = `Mantente informado sobre las últimas innovaciones en medicina regenerativa, 
-terapias avanzadas y casos de éxito de nuestros tratamientos.`
+//SHOULD MOVE THIS CONTENT TO DB AND GENERATE ADMIN PANEL FOR IT
+
+export const brand = `Etercell`
+export const blogIntro = `Mantente informado sobre las últimas innovaciones en medicina regenerativa, terapias avanzadas y casos de éxito de nuestros tratamientos.`
 
 
 export const menuItems = [
@@ -56,6 +57,62 @@ Procedimientos mínimamente invasivos: La mayoría de nuestros tratamientos son 
   { title: "ÁREAS DE APLICACIÓN", description: ` Los ensayos clínicos basados ​​en MSC involucran una variedad de enfermedades en diferentes órganos y tejidos. Los ensayos clínicos basados ​​en MSC se aplican principalmente a enfermedades asociadas con la inflamación, la cicatrización de heridas, la infección y la degeneración en diversos órganos y tejidos. La figura muestra los tipos de enfermedades que han completado ensayos clínicos, y las enfermedades más aplicadas involucran los huesos y el sistema nervioso. Las MSC poseen una gran capacidad para equilibrar las respuestas inmunitarias, especialmente en trastornos autoinmunes, como la GvHD y la enfermedad de Crohn…
     <Link href="/blog">más</Link>`},
 ];
+
+
+
+export const specialties = [
+  {
+    title: "TRAUMATOLOGÍA",
+    description: "Solo determinados tejidos y órganos son capaces de regenerarse espontáneamente después de una enfermedad o trauma. Esta capacidad humana explora enfoques terapéuticos regenerativos para tratar diversas afecciones. Las células madre mesenquimales (MSC) se derivan de células madre adultas, son multipotentes y ejercen efectos antiinflamatorios e inmunomoduladores.",
+    applications: [
+      "Lesiones deportivas",
+      "Fracturas complejas",
+      "Regeneración de cartílago",
+      "Lesiones de ligamentos y tendones"
+    ]
+  },
+  {
+    title: "NEUROLOGÍA",
+    description: "La medicina regenerativa neurológica se enfoca en la restauración de la función del sistema nervioso mediante terapias celulares avanzadas y factores de crecimiento específicos.",
+    applications: [
+      "Enfermedades neurodegenerativas",
+      "Lesiones de médula espinal",
+      "Accidentes cerebrovasculares",
+      "Neuropatías periféricas"
+    ]
+  },
+  {
+    title: "ODONTOLOGÍA",
+    description: "Aplicación de terapias regenerativas en odontología para la restauración de tejidos dentales, periodontales y maxilofaciales.",
+    applications: [
+      "Regeneración periodontal",
+      "Implantología avanzada",
+      "Regeneración ósea maxilar",
+      "Tratamiento de ATM"
+    ]
+  },
+  {
+    title: "ESTÉTICA",
+    description: "Medicina estética regenerativa que utiliza células madre y factores de crecimiento para rejuvenecimiento facial y corporal.",
+    applications: [
+      "Rejuvenecimiento facial",
+      "Tratamiento de cicatrices",
+      "Regeneración capilar",
+      "Lifting no quirúrgico"
+    ]
+  },
+  {
+    title: "CRIOPRESERVACIÓN",
+    description: "Conservación de células madre y tejidos a temperaturas ultra bajas para su uso futuro en terapias regenerativas personalizadas.",
+    applications: [
+      "Preservación de células madre",
+      "Banco de tejidos autólogos",
+      "Medicina personalizada",
+      "Terapias futuras"
+    ]
+  }
+]
+
 
 export const footer = {
     text: `Líderes en medicina regenerativa y terapias avanzadas. Ofrecemos soluciones innovadoras 

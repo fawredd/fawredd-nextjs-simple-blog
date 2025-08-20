@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { verifyToken } from '@/lib/auth'
 import { BlogService } from '@/lib/blog-service'
 import { cookies } from 'next/headers'
-import { json } from 'stream/consumers'
 
 export async function GET(
   request: NextRequest,

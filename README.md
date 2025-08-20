@@ -33,6 +33,7 @@ DATABASE_URL=your_database_url_here
 ```
 
 - Edit `config.ts` to adjust project-specific configuration variables.
+SHOULD MOVE THIS TO DB AND ADMIN PANEL
 
 ### Running the Development Server
 

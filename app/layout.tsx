@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
-import { brand, footer, brandKeywords } from "@/lib/config"
-import { Analytics } from "@vercel/analytics/next"
+import { brand, footer, brandKeywords } from "@/lib/config";
+import { Analytics } from "@vercel/analytics/next";
+import Header from "@/components/header";
+import Footer from "@/components/footer";
 
 export const metadata: Metadata = {
   title: `${brand} - Medicina Regenerativa`,
@@ -27,7 +29,12 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        <link rel="icon" href="/assets/favicon16.png" type="image/png" sizes="16x16" />
+        <link
+          rel="icon"
+          href="/assets/favicon16.png"
+          type="image/png"
+          sizes="16x16"
+        />
         <style>{`
 html {
   font-family: ${GeistSans.style.fontFamily};
@@ -37,7 +44,11 @@ html {
         `}</style>
       </head>
       <body>
-        {children}
+        <div className="min-h-screen bg-white relative">
+          <Header />
+          {children}
+          <Footer />
+        </div>
         <Analytics />
       </body>
     </html>

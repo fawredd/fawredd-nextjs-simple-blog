@@ -1,14 +1,12 @@
 import { Suspense } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import Header from "@/components/header";
-import Footer from "@/components/footer";
 import SidebarServer from "@/components/sidebar-server";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BlogService } from "@/lib/blog-service";
-import { brand, blogIntro } from "@/lib/config";
+import { brand } from "@/lib/config";
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -20,10 +18,7 @@ export default async function BlogPage({ params }: BlogPostPageProps) {
   const posts = await BlogService.getPostsByTagSlug([decodedSlug]);
 
   return (
-    <div className="min-h-screen bg-white">
-      <Header />
-
-      <main className="container mx-auto px-4 py-8">
+      <main className="container mx-auto px-4 py-8 my-16">
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Main Content */}
           <div className="flex-1">
@@ -132,7 +127,5 @@ export default async function BlogPage({ params }: BlogPostPageProps) {
         </div>
       </main>
 
-      <Footer />
-    </div>
   );
 }

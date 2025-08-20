@@ -49,11 +49,11 @@ SELECT
 <p>En el ámbito de la traumatología, los secretomas de células madre presentan grandes beneficios para el tratamiento de lesiones que hasta ahora presentaban grandes desafíos para los médicos especialistas en traumatología y la regeneración capilar hasta la medicina estética.</p>',
     'Descubre cómo los secretomas están revolucionando la medicina regenerativa, desde la traumatología hasta la medicina estética, ofreciendo nuevas esperanzas para tratamientos innovadores.',
     true,
-    (SELECT id FROM users WHERE email = 'admin@etercell.com' LIMIT 1),
+    (SELECT id FROM users WHERE email = 'test@test.com' LIMIT 1),
     '/placeholder.svg?height=400&width=600',
     NOW(),
     NOW()
-WHERE EXISTS (SELECT 1 FROM users WHERE email = 'admin@etercell.com');
+WHERE EXISTS (SELECT 1 FROM users WHERE email = 'test@test.com');
 
 INSERT INTO blog_posts (title, slug, content, excerpt, published, author_id, featured_image, created_at, updated_at)
 SELECT 
@@ -76,8 +76,8 @@ SELECT
 <p>Estas terapias ofrecen esperanza para millones de pacientes que sufren de enfermedades degenerativas, lesiones traumáticas y trastornos genéticos.</p>',
     'Explora las últimas innovaciones en medicina regenerativa y cómo estas terapias avanzadas están transformando el panorama médico actual.',
     true,
-    (SELECT id FROM users WHERE email = 'admin@etercell.com' LIMIT 1),
+    (SELECT id FROM users WHERE email = 'test@test.com' LIMIT 1),
     '/placeholder.svg?height=400&width=600',
     NOW(),
     NOW()
-WHERE EXISTS (SELECT 1 FROM users WHERE email = 'admin@etercell.com');
+WHERE EXISTS (SELECT 1 FROM users WHERE email = 'test@test.com');
