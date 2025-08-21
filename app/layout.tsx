@@ -6,6 +6,7 @@ import { brand, footer, brandKeywords } from "@/lib/config";
 import { Analytics } from "@vercel/analytics/next";
 import Header from "@/components/header";
 import Footer from "@/components/footer";
+import {Toaster} from '@/components/ui/sonner'
 
 export const metadata: Metadata = {
   title: `${brand} - Medicina Regenerativa`,
@@ -49,6 +50,7 @@ html {
           {children}
           <Footer />
         </div>
+        <Toaster />
         <Analytics />
       </body>
     </html>

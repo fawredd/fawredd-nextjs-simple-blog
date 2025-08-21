@@ -1,7 +1,6 @@
 import { Suspense } from "react"
 import SidebarServer from "@/components/sidebar-server"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { specialties } from "@/lib/config"
 
 export default async function EspecialidadesPage() {
@@ -45,10 +44,6 @@ export default async function EspecialidadesPage() {
                         ))}
                       </ul>
                     </div>
-
-                    <Button className="bg-green-600 hover:bg-green-700 text-white">
-                      Consultar Especialidad
-                    </Button>
                   </CardContent>
                 </Card>
               ))}

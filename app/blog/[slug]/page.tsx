@@ -11,6 +11,7 @@ import { brand } from "@/lib/config";
 import parser from "html-react-parser";
 import RelatedArticles from "@/components/relatedArticles";
 import Tagshow from "@/components/tagshow";
+import ShareButton from '@/components/share-button'
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -51,7 +52,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                       src={post.featured_image || "/placeholder.svg"}
                       alt={post.title}
                       fill
-                      className="object-cover"
+                      className="object-cover object-left-top"
                       priority
                     />
                   </div>
@@ -91,7 +92,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 {/* Excerpt */}
                 {post.excerpt && (
                   <div className="text-base text-gray-600 mb-8 leading-relaxed border-l-4 border-green-600 pl-6 bg-green-50 p-6 rounded-r-lg">
-                    {post.excerpt}
+                    {parser(post.excerpt)}
                   </div>
                 )}
               </header>
@@ -114,15 +115,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                     </p>
                   </div>
                   <div className="flex gap-2">
-                    <Button className="bg-green-600 hover:bg-green-700 text-white">
-                      Compartir Artículo
-                    </Button>
-                    <Button
-                      variant="outline"
-                      className="border-green-600 text-green-600 hover:bg-green-50"
-                    >
-                      Solicitar Consulta
-                    </Button>
+                    <ShareButton title={post.title} text={post.excerpt} />
                   </div>
                 </div>
               </footer>

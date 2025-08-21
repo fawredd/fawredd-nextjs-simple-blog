@@ -32,7 +32,7 @@ export default async function SidebarServer() {
         </CardContent>
       </Card>
 
-      {/* Categories */}
+      {/* Categories 
       <Card>
         <CardHeader>
           <CardTitle className="text-green-600">Categorías</CardTitle>
@@ -52,6 +52,7 @@ export default async function SidebarServer() {
           </ul>
         </CardContent>
       </Card>
+      */}
 
       {/* Tags */}
       <Card>
@@ -59,7 +60,7 @@ export default async function SidebarServer() {
           <CardTitle className="text-green-600">Etiquetas</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 max-h-96 overflow-y-auto">
             {tagsResult.map((tag,tagIndex) => (
               <Link
                 key={`sidebarTag${tagIndex}`}

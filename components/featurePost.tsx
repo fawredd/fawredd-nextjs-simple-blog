@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Card } from "./ui/card";
 import { Button } from "@/components/ui/button";
 import { Suspense } from "react";
+import parser from "html-react-parser";
 
 export default async function FeaturePost() {
   const posts = await BlogService.getAllPosts(true);
@@ -21,7 +22,7 @@ export default async function FeaturePost() {
             src={featuredPost.featured_image || "/placeholder.svg"}
             alt={featuredPost.title}
             fill
-            className="object-cover absolute inset-0 z-0"
+            className="object-cover object-left-top absolute inset-0 z-0"
             priority
           />
           <div className="absolute inset-0 bg-white bg-opacity-80 flex items-center justify-center z-10 bg-gradient-to-b from-transparent to-white">
@@ -30,7 +31,7 @@ export default async function FeaturePost() {
                 {featuredPost.title}
               </h2>
               <p className="text-justify text-base mb-6 opacity-90 drop-shadow-sm overflow-hidden line-clamp-4">
-                {featuredPost.excerpt}
+                {parser(featuredPost.excerpt || "")}
               </p>
               <Link href={`/blog/${featuredPost.slug}`}>
                 <Button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2">

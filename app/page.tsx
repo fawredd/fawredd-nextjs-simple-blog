@@ -3,6 +3,7 @@ import SidebarServer from "@/components/sidebar-server";
 import Hero from "@/components/hero";
 import FeaturePost from "@/components/featurePost";
 import Specialities from "@/components/specialities";
+import AIgeneratedPost from "@/components/aiBlogPost";
 
 export default async function HomePage() {
   return (
@@ -13,8 +14,8 @@ export default async function HomePage() {
           <div className="flex-1">
             <FeaturePost />
             <Specialities />
+            <AIgeneratedPost />
           </div>
-
           {/* Sidebar */}
           <Suspense
             fallback={

@@ -113,7 +113,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
 
   if (isFetching) {
     return (
-      <div className="bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-green-600 mx-auto mb-4"></div>
           <p>Cargando post...</p>
@@ -124,7 +124,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
 
   if (!formData) {
     return (
-      <div className=" bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
           <p className="text-red-600 mb-4">Post no encontrado</p>
           <Link href="/admin/posts">
