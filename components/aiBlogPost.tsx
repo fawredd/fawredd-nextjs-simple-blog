@@ -37,7 +37,7 @@ export default  function AIgeneratedPost() {
 
 
     return (
-      <div className="flex items-center gap-2 my-8 bg-green-600 text-white rounded-lg p-6">
+      <div className="flex flex-col md:flex-row items-start md:items-center gap-2 my-8 bg-green-600 text-white rounded-lg p-6">
       <Label htmlFor="search" className="text-base">Buscar:</Label>
         <Input disabled={isLoading} type="search" name="search" value={textSearch} onChange={(e) => setTextSearch(e.target.value)} placeholder="Que es la medicina regenerativa?"  className="flex-grow"/>
 

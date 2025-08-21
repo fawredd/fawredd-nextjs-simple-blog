@@ -118,7 +118,6 @@ export class BlogService {
         VALUES (${data.title}, ${data.slug}, ${data.content}, ${data.excerpt || ""}, ${data.published}, ${data.author_id}, ${data.featured_image || ""},${data.tags || []}, NOW(), NOW())
         RETURNING *
       `;
-
       return posts.length > 0 ? (posts[0] as BlogPost) : null;
     } catch (error) {
       console.error("Error creating post:", error);
