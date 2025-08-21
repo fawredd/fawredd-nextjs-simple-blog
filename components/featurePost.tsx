@@ -30,9 +30,9 @@ export default async function FeaturePost() {
               <h2 className="text-center text-green-600 text-2xl md:text-3xl font-bold mb-4 drop-shadow-md">
                 {featuredPost.title}
               </h2>
-              <p className="text-justify text-base mb-6 opacity-90 drop-shadow-sm overflow-hidden line-clamp-4">
+              <div className="text-justify text-base mb-6 opacity-90 drop-shadow-sm overflow-hidden line-clamp-4">
                 {parser(featuredPost.excerpt || "")}
-              </p>
+              </div>
               <Link href={`/blog/${featuredPost.slug}`}>
                 <Button className="bg-green-600 hover:bg-green-700 text-white px-6 py-2">
                   Leer más
