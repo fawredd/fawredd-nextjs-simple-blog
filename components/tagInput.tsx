@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef, KeyboardEvent, ChangeEvent } from 'react';
-import GetTagsList from '@/actions/BlogActions';
+import { GetTagsList } from '@/actions/BlogActions';
 
 interface TagInputProps {
   initialTags?: string[];

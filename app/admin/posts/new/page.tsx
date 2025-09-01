@@ -12,7 +12,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import TagInput from '@/components/tagInput'
-import GetTagsList from '@/actions/BlogActions'
+import { GetTagsList } from '@/actions/BlogActions'
 
 export default function NewPostPage() {
   const [formData, setFormData] = useState({

@@ -1,5 +1,9 @@
 //SHOULD MOVE THIS CONTENT TO DB AND GENERATE ADMIN PANEL FOR IT
 
+export const SITE_NAME = `Etercell`
+export const SITE_URL = `https://www.etercell.com`
+export const SITE_DESCRIPTION = "Líderes en medicina regenerativa y terapias avanzadas."
+
 export const brand = `Etercell`
 export const blogIntro = `Mantente informado sobre las últimas innovaciones en medicina regenerativa, terapias avanzadas y casos de éxito de nuestros tratamientos.`
 
