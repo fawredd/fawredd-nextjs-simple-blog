@@ -171,7 +171,7 @@ export class BlogService {
 
   static async getPostsByTagSlug(
     tagSlug: string[],
-    limit = 5
+    limit = 10
   ): Promise<BlogPost[]> {
     try {
       const posts = await sql`
@@ -179,7 +179,7 @@ export class BlogService {
             FROM blog_posts p
             JOIN users u ON p.author_id = u.id
             WHERE p.published = true AND p.tags @> ${tagSlug}
-            ORDER BY p.created_at DESC
+            ORDER BY p.created_at DESC LIMIT ${limit}
       `;
       return posts as BlogPost[];
     } catch (error) {
@@ -240,5 +240,21 @@ export class BlogService {
       .replace(/\s+/g, "-")
       .replace(/-+/g, "-")
       .trim();
+  }
+
+  static async GetBlosPostsByUserQuery(userQuery: string): Promise<BlogPost[]> {
+    try {
+      const posts = await sql`
+            SELECT p.*, u.name as author_name
+            FROM blog_posts p
+            JOIN users u ON p.author_id = u.id
+            WHERE p.published = true AND (p.title ILIKE ${'%' + userQuery + '%'} OR p.content ILIKE ${'%' + userQuery + '%'} OR p.excerpt ILIKE ${'%' + userQuery + '%'})
+            ORDER BY p.created_at DESC LIMIT 10
+      `;
+      return posts as BlogPost[];
+    } catch (error) {
+      console.error("Error fetching related posts:", error);
+      return [];
+    }
   }
 }

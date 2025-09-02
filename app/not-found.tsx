@@ -8,7 +8,7 @@ import { Suspense } from "react";
 export default async function NotFound() {
   return (
     <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-      <Card className="w-full max-w-2xl">
+      <Card className="mt-24 w-full max-w-2xl">
         <CardContent className="p-4 text-center">
           <div className="mb-6">
             <div className="text-2xl font-bold text-green-600 mb-2">404</div>

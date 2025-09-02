@@ -1,115 +1,122 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import Link from 'next/link'
-import { toast } from 'sonner'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Textarea } from '@/components/ui/textarea'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Checkbox } from '@/components/ui/checkbox'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import TagInput from '@/components/tagInput'
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import TagInput from "@/components/tagInput";
 
 interface BlogPost {
-  id: number
-  title: string
-  content: string
-  excerpt?: string
-  featured_image?: string
-  published: boolean
+  id: number;
+  title: string;
+  content: string;
+  excerpt?: string;
+  featured_image?: string;
+  published: boolean;
 }
 
-export default function EditPostPage({ params }: { params: Promise<{ id: string }> }) {
-  const [resolvedParams, setResolvedParams] = useState<{ id: string } | null>(null)
-  const [formData, setFormData] = useState<BlogPost | null>(null)
-  const [error, setError] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [isFetching, setIsFetching] = useState(true)
-  const router = useRouter()
+export default function EditPostPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const [resolvedParams, setResolvedParams] = useState<{ id: string } | null>(
+    null
+  );
+  const [formData, setFormData] = useState<BlogPost | null>(null);
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
+  const router = useRouter();
   const [tags, setTags] = useState<string[]>([]);
 
   useEffect(() => {
-    params.then(setResolvedParams)
-  }, [params])
+    params.then(setResolvedParams);
+  }, [params]);
 
   useEffect(() => {
-    if (resolvedParams?.id) {
-      fetchPost()
-    }
-  }, [resolvedParams])
+    const fetchPost = async () => {
+      if (!resolvedParams?.id) return;
 
-  const fetchPost = async () => {
-    if (!resolvedParams?.id) return
-
-    try {
-      const response = await fetch(`/api/admin/posts/${resolvedParams.id}`)
-      if (response.ok) {
-        const post = await response.json()
-        setFormData(post)
-        setTags(post.tags)
-      } else {
-        setError('Post no encontrado')
-        toast.error('Post no encontrado')
+      try {
+        const response = await fetch(`/api/admin/posts/${resolvedParams.id}`);
+        if (response.ok) {
+          const post = await response.json();
+          setFormData(post);
+          setTags(post.tags);
+        } else {
+          setError("Post no encontrado");
+          toast.error("Post no encontrado");
+        }
+      } catch (error) {
+        console.error("Error fetching post:", error);
+        setError("Error al cargar el post");
+        toast.error("Error al cargar el post");
+      } finally {
+        setIsFetching(false);
       }
-    } catch (error) {
-      console.error('Error fetching post:', error)
-      setError('Error al cargar el post')
-      toast.error('Error al cargar el post')
-    } finally {
-      setIsFetching(false)
+    };
+    if (resolvedParams?.id) {
+      fetchPost();
     }
-  }
+  }, [resolvedParams]);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    if (!formData || !resolvedParams?.id) return
+    e.preventDefault();
 
-    setIsLoading(true)
-    setError('')
+    if (!formData || !resolvedParams?.id) return;
+
+    setIsLoading(true);
+    setError("");
     //Build payload including tags
-    const payload = { ...formData, tags: tags }
+    const payload = { ...formData, tags: tags };
     try {
       const response = await fetch(`/api/admin/posts/${resolvedParams.id}`, {
-        method: 'PUT',
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
-      })
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (response.ok) {
-        toast.success('Post actualizado exitosamente', {
-          description: `"${formData.title}" ha sido actualizado`
-        })
-        router.push('/admin/posts')
+        toast.success("Post actualizado exitosamente", {
+          description: `"${formData.title}" ha sido actualizado`,
+        });
+        router.push("/admin/posts");
       } else {
-        setError(data.error || 'Error al actualizar el post')
-        toast.error('Error al actualizar el post', {
-          description: data.error || 'No se pudo actualizar el post'
-        })
+        setError(data.error || "Error al actualizar el post");
+        toast.error("Error al actualizar el post", {
+          description: data.error || "No se pudo actualizar el post",
+        });
       }
     } catch (error) {
-      console.error('Error updating post:', error)
-      setError('Error de conexión')
-      toast.error('Error de conexión', {
-        description: 'No se pudo conectar con el servidor'
-      })
+      console.error("Error updating post:", error);
+      setError("Error de conexión");
+      toast.error("Error de conexión", {
+        description: "No se pudo conectar con el servidor",
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    if (!formData) return
-    const { name, value } = e.target
-    setFormData(prev => prev ? { ...prev, [name]: value } : null)
-  }
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    if (!formData) return;
+    const { name, value } = e.target;
+    setFormData((prev) => (prev ? { ...prev, [name]: value } : null));
+  };
 
   if (isFetching) {
     return (
@@ -119,7 +126,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
           <p>Cargando post...</p>
         </div>
       </div>
-    )
+    );
   }
 
   if (!formData) {
@@ -132,7 +139,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
           </Link>
         </div>
       </div>
-    )
+    );
   }
 
   return (
@@ -168,7 +175,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
                 <Textarea
                   id="excerpt"
                   name="excerpt"
-                  value={formData.excerpt || ''}
+                  value={formData.excerpt || ""}
                   onChange={handleChange}
                   placeholder="Breve descripción del post"
                   rows={3}
@@ -180,7 +187,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
                 <Input
                   id="featured_image"
                   name="featured_image"
-                  value={formData.featured_image || ''}
+                  value={formData.featured_image || ""}
                   onChange={handleChange}
                   placeholder="https://ejemplo.com/imagen.jpg"
                 />
@@ -201,15 +208,20 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
               </div>
               <div>
                 <span>Tags: </span>
-                <TagInput initialTags={tags} onTagsChange={(tags)=>setTags(tags)}/>
+                <TagInput
+                  initialTags={tags}
+                  onTagsChange={(tags) => setTags(tags)}
+                />
               </div>
 
               <div className="flex items-center space-x-2">
                 <Checkbox
                   id="published"
                   checked={formData.published}
-                  onCheckedChange={(checked) => 
-                    setFormData(prev => prev ? { ...prev, published: checked as boolean } : null)
+                  onCheckedChange={(checked) =>
+                    setFormData((prev) =>
+                      prev ? { ...prev, published: checked as boolean } : null
+                    )
                   }
                 />
                 <Label htmlFor="published">Publicado</Label>
@@ -227,7 +239,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
                   className="bg-green-600 hover:bg-green-700"
                   disabled={isLoading}
                 >
-                  {isLoading ? 'Actualizando...' : 'Actualizar Post'}
+                  {isLoading ? "Actualizando..." : "Actualizar Post"}
                 </Button>
                 <Link href="/admin/posts">
                   <Button type="button" variant="outline">
@@ -240,5 +252,5 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
         </Card>
       </div>
     </div>
-  )
+  );
 }

@@ -3,9 +3,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import Link from 'next/link'
 
 export default async function SidebarServer() {
-  const [recentPosts, categories, tagsResult] = await Promise.all([
+  const [recentPosts, tagsResult] = await Promise.all([ //I may add here categories too in the future
     BlogService.getRecentPosts(5),
-    BlogService.getCategories(),
     BlogService.getTags()
   ])
 
@@ -18,13 +17,13 @@ export default async function SidebarServer() {
         </CardHeader>
         <CardContent>
           <ul className="space-y-3 w-full mx-1">
-            {recentPosts.map((post) => (
+            {recentPosts.map((post, index) => (
               <li key={`recentPost${post.id}`} className="flex-shrink-0">
                 <Link 
                   href={`/blog/${post.slug}`}
-                  className="w-full block whitespace-nowrap overflow-hidden text-ellipsis text-sm text-white hover:text-slate-400 transition-colors border bg-green-600 p-2 rounded-lg"
+                  className="w-full block whitespace-nowrap overflow-hidden text-ellipsis text-sm hover:text-slate-400 transition-colors p-1"
                 >
-                  {post.title.substring(0,40)}...
+                  {`${index+1}) ${post.title.substring(0,40)}...`}
                 </Link>
               </li>
             ))}

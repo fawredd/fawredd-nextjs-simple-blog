@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import SidebarServer from "@/components/sidebar-server";
-import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { BlogService } from "@/lib/blog-service";
 import { ArrowLeft, Calendar, User } from "lucide-react";

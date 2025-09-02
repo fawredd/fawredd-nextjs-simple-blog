@@ -1,28 +1,12 @@
-'use client'
 import Image from "next/image";
 import Link from "next/link";
 import { Card } from "./ui/card";
 import { Button } from "@/components/ui/button";
 import parser from "html-react-parser";
-import { GetAllBlogPost } from "@/actions/BlogActions";
-import { useState, useEffect } from "react";
-import type { BlogPost } from "@/lib/database";
+import { BlogPost } from "@/lib/database";
 
-export default function FeaturePost() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [featuredPost, setFeaturedPost] = useState<BlogPost | null>(null);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      const posts = await GetAllBlogPost();
-      setFeaturedPost(posts[Math.floor(Math.random() * posts.length)]);
-      setIsLoading(false);
-    };
-    fetchPosts();
-  }, []);
-  if (isLoading) {
-    return <div className="w-80 animate-pulse bg-gray-200 h-96 rounded"></div>
-  }
+export default function FeaturePost({featuredPost}:{ featuredPost: Pick<BlogPost, "title" | "slug" | "excerpt" | "featured_image"> | null}) {
   return (
       (!featuredPost)?(<><p>No hay publicaciones destacadas</p></>):(
         <Card className={`max-w-full mb-8 h-96 overflow-hidden relative border-none`}>

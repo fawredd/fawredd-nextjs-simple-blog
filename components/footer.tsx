@@ -21,7 +21,7 @@ export default function Footer() {
               {footer.text}
             </p>
             <div className="text-sm text-gray-400">
-              {Object.entries(contactData).map(([key, value],itemIndex)=>(
+              {Object.entries(contactData).map(([, value],itemIndex)=>(
                 <p key={`contact${itemIndex}`}>{value.label} {value.text}</p>
                 )
               )}
