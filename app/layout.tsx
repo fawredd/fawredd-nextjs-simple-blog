@@ -17,6 +17,11 @@ export default function RootLayout({
     <html lang="es">
       <head>
         <link
+          rel="canonical"
+          href="https://etercell.com/"
+          key="canonical"
+        />
+        <link
           rel="icon"
           href="/assets/favicon16.png"
           type="image/png"
