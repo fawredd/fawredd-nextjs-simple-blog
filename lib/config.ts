@@ -5,7 +5,7 @@ export const SITE_URL = `https://www.etercell.com`
 export const SITE_DESCRIPTION = "Líderes en medicina regenerativa y terapias avanzadas."
 
 export const brand = `Etercell`
-export const blogIntro = `Mantente informado sobre las últimas innovaciones en medicina regenerativa, terapias avanzadas y casos de éxito de nuestros tratamientos.`
+export const blogIntro = `Explora los últimos avances y noticias en medicina regenerativa. El blog de Etercell te mantiene informado sobre terapias celulares, tratamientos innovadores y el futuro de la salud.`
 
 
 export const menuItems = [

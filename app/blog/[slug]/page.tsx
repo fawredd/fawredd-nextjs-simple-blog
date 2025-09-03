@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -6,11 +7,11 @@ import SidebarServer from "@/components/sidebar-server";
 import { Badge } from "@/components/ui/badge";
 import { BlogService } from "@/lib/blog-service";
 import { ArrowLeft, Calendar, User } from "lucide-react";
-import { brand } from "@/lib/config";
 import parser from "html-react-parser";
 import RelatedArticles from "@/components/relatedArticles";
 import Tagshow from "@/components/tagshow";
 import ShareButton from '@/components/share-button'
+import { brand,brandKeywords, SITE_URL } from '@/lib/config';
 
 interface BlogPostPageProps {
   params: Promise<{ slug: string }>;
@@ -137,7 +138,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 }
 
 // Generate metadata for SEO
-export async function generateMetadata({ params }: BlogPostPageProps) {
+export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
   const post = await BlogService.getPostBySlug(slug);
 
@@ -145,30 +146,104 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
     return {
       title: "Artículo no encontrado",
       description: "El artículo que buscas no existe o ha sido eliminado.",
+      robots: {
+        index: false, // ✨ Don't index a "not found" page
+        follow: true,
+      }
     };
   }
+  // --- Define shared metadata variables to avoid repetition (DRY) ---
+  const pageTitle = `${post.title} - ${brand} Blog`;
+  const pageDescription = post.excerpt || `Lee sobre ${post.title} en el blog de ${brand}, especialistas en medicina regenerativa.`;
+  const imageUrl = post.featured_image || `${SITE_URL}/assets/etercel-logo-nuevo.png`; // Fallback image
+  const pageUrl = `${SITE_URL}/blog/${post.slug}`; // ✨ The canonical URL for this page
 
-  return {
-    title: `${post.title} - ${brand} Blog`,
-    description:
-      post.excerpt ||
-      `Lee sobre ${post.title} en el blog de ${brand}, especialistas en medicina regenerativa.`,
+return {
+    // --- Core Metadata ---
+    title: pageTitle,
+    description: pageDescription,
+    keywords: post?.tags?.join(", ") || brandKeywords, // ✨ Moved to top-level
+    authors: [{ name: brand }], // ✨ Standard authors metadata
+
+    // ✨ IMPROVEMENT: Add a canonical URL to prevent duplicate content
+    alternates: {
+      canonical: pageUrl,
+    },
+
+    // --- Social Media Cards ---
     openGraph: {
-      title: post.title,
-      description:
-        post.excerpt || `Lee sobre ${post.title} en el blog de ${brand}.`,
-      images: post.featured_image ? [post.featured_image] : [],
+      title: post.title, // Social titles can be shorter, without the brand name
+      description: pageDescription,
+      url: pageUrl, // ✨ Crucial for sharing
+      siteName: `${brand} Blog`,
       type: "article",
       publishedTime: post.created_at,
       modifiedTime: post.updated_at,
-      authors: post.author_name ? [post.author_name] : [],
+      authors: [brand],
+      // ✨ IMPROVEMENT: Provide detailed image metadata
+      images: [
+        {
+          url: imageUrl,
+          width: 1200, //  width
+          height: 630, //  height
+          alt: `${post.title} - ${brand} Blog`, // ✨ Important for accessibility and SEO
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
-      description:
-        post.excerpt || `Lee sobre ${post.title} en el blog de ${brand}.`,
-      images: post.featured_image ? [post.featured_image] : [],
+      description: pageDescription,
+      // ✨ IMPROVEMENT: Provide a detailed image object
+      images: [{
+        url: imageUrl,
+        alt: `Imagen de portada para el artículo: ${post.title}`,
+      }],
+      // creator: "@yourTwitterHandle", // Optional: add your Twitter handle
+    },
+    
+    // --- Search Engine Instructions ---
+    robots:{
+      index: true,
+      follow: true,
+      googleBot: {
+          index: true,
+          follow: true,
+          'max-video-preview': -1,
+          'max-image-preview': 'large',
+          'max-snippet': -1,
+      },
+    },
+
+    // ✨ HUGE IMPROVEMENT: Add JSON-LD Structured Data
+    // This helps Google understand your content for Rich Results
+    other: {
+      "application/ld+json": JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": pageDescription,
+        "image": imageUrl,
+        "url": pageUrl,
+        "datePublished": post.created_at,
+        "dateModified": post.updated_at,
+        "author": {
+          "@type": "Person",
+          "name": brand,
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": brand,
+          "logo": {
+            "@type": "ImageObject",
+            "url": `${SITE_URL}/assets/etercel-logo-nuevo.png`, // URL to your brand logo
+          },
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": pageUrl
+        }
+      }),
     },
   };
 }

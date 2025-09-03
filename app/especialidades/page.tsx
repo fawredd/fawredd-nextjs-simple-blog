@@ -1,7 +1,99 @@
 import { Suspense } from "react"
 import SidebarServer from "@/components/sidebar-server"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { specialties } from "@/lib/config"
+import { SITE_URL, specialties, brand } from "@/lib/config"
+import { Metadata } from 'next';
+
+// --- Define constantes para claridad y fácil mantenimiento ---
+const pageUrl = `${SITE_URL}/especialidades`;
+
+const pageTitle = 'Especialidades en Medicina Regenerativa | Etercell';
+const pageDescription = 'Descubre nuestras especialidades y los tratamientos avanzados con medicina regenerativa para traumatología, dermatología, medicina estética y más. Soluciones innovadoras para tu salud.';
+
+export const metadata: Metadata = {
+  // --- Metadatos Principales para SEO ---
+  title: pageTitle,
+  description: pageDescription,
+  
+  // ✨ MEJORA: Canonical URL para evitar contenido duplicado
+  alternates: {
+    canonical: pageUrl,
+  },
+
+  // --- Social Cards (Open Graph y Twitter) ---
+  openGraph: {
+    title: pageTitle,
+    description: pageDescription,
+    url: pageUrl,
+    siteName: brand,
+    // ✨ CRÍTICO: Una imagen representativa de las especialidades
+    images: [
+      {
+        url: `${SITE_URL}/assets/etercell-logo-h.png`, // Debes crear esta imagen
+        width: 1200,
+        height: 630,
+        alt: `Diversas aplicaciones de la medicina regenerativa en las especialidades de ${brand}`,
+      },
+    ],
+    locale: 'es_AR',
+    type: 'website',
+  },
+  
+  twitter: {
+    card: 'summary_large_image',
+    title: pageTitle,
+    description: pageDescription,
+    images: [`${SITE_URL}/assets/etercell-logo-h.png`],
+    // creator: '@user', // Opcional: Tu usuario de X/Twitter
+  },
+  
+  // --- Instrucciones para Robots ---
+  robots: {
+    index: true,
+    follow: true,
+  },
+
+  // ✨ MEJORA AVANZADA: JSON-LD con Breadcrumbs y Schema Médico
+  // Esto ayuda a Google a entender la estructura de tu sitio y el contexto médico de la página
+  other: {
+    "application/ld+json": JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "MedicalWebPage", // Schema específico para páginas con contenido médico
+          "url": pageUrl,
+          "name": pageTitle,
+          "description": pageDescription,
+          "publisher": {
+            "@type": "Organization",
+            "name": brand,
+            "logo": {
+              "@type": "ImageObject",
+              "url": `${SITE_URL}/assets/etercell-logo-h.png`
+            }
+          }
+        },
+        {
+          "@type": "BreadcrumbList", // Ayuda a Google a mostrar la ruta en los resultados de búsqueda
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Inicio",
+              "item": SITE_URL
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Especialidades",
+              "item": pageUrl
+            }
+          ]
+        }
+      ]
+    })
+  }
+};
 
 export default async function EspecialidadesPage() {
   return (
