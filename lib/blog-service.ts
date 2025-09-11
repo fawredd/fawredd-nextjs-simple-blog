@@ -1,4 +1,3 @@
-import { errors } from "jose";
 import { sql } from "./database";
 import type { BlogPost, Category, PostTag } from "./database";
 
