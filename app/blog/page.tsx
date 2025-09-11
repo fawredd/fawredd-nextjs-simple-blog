@@ -101,8 +101,9 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogPage() {
+  
   const posts = await BlogService.getAllPosts(true);
-
+  
   return (
  
       <main className="container mx-auto px-4 py-8 my-16">

@@ -5,6 +5,21 @@ if (!process.env.DATABASE_URL) {
 }
 
 export const sql = neon(process.env.DATABASE_URL)
+async function testDb() {
+  try {
+    const result = await sql`SELECT 1`;
+    console.log('Database connection successful! 🎉');
+    console.log('Query result:', result);
+    
+  } catch (error) {
+    console.error('Database connection failed! 😟');
+    console.error('Error details:', error);
+    throw new Error("Stop execution after db test failed")
+  } finally {
+    console.log('Database test completed.');
+  }
+}
+testDb();
 
 export interface User {
   id: number

@@ -1,3 +1,4 @@
+import { errors } from "jose";
 import { sql } from "./database";
 import type { BlogPost, Category, PostTag } from "./database";
 
@@ -23,7 +24,7 @@ export class BlogService {
       return posts as BlogPost[];
     } catch (error) {
       console.error("Error fetching posts:", error);
-      return [];
+      throw new Error("Error fetching posts");
     }
   }
 
@@ -40,7 +41,7 @@ export class BlogService {
       return posts.length > 0 ? (posts[0] as BlogPost) : null;
     } catch (error) {
       console.error("Error fetching post by slug:", error);
-      return null;
+      throw new Error("Error fetching post by slug");
     }
   }
 
@@ -57,7 +58,7 @@ export class BlogService {
       return posts.length > 0 ? (posts[0] as BlogPost) : null;
     } catch (error) {
       console.error("Error fetching post by ID:", error);
-      return null;
+      throw new Error("Error fetching post by ID");
     }
   }
 
@@ -74,7 +75,7 @@ export class BlogService {
       return posts as BlogPost[];
     } catch (error) {
       console.error("Error fetching recent posts:", error);
-      return [];
+      throw new Error("Error fetching recent posts");
     }
   }
 
@@ -88,7 +89,7 @@ export class BlogService {
       return categories as Category[];
     } catch (error) {
       console.error("Error fetching categories:", error);
-      return [];
+      throw new Error("Error fetching categories");
     }
   }
 
@@ -98,7 +99,7 @@ export class BlogService {
       return (result.length > 0)? result.map((tag)=>tag.tags) : []
     } catch (error) {
       console.error("Error fetching tags:", error);
-      return [];
+      throw new Error("Error fetching tags");
     }
   }
 
@@ -121,7 +122,7 @@ export class BlogService {
       return posts.length > 0 ? (posts[0] as BlogPost) : null;
     } catch (error) {
       console.error("Error creating post:", error);
-      return null;
+      throw new Error("Error creating post");
     }
   }
 
@@ -155,7 +156,7 @@ export class BlogService {
       return posts.length > 0 ? (posts[0] as BlogPost) : null;
     } catch (error) {
       console.error("Error updating post:", error);
-      return null;
+      throw new Error("Error updating post");
     }
   }
 
@@ -165,7 +166,7 @@ export class BlogService {
       return true;
     } catch (error) {
       console.error("Error deleting post:", error);
-      return false;
+      throw new Error("Error deleting post");
     }
   }
 
@@ -183,8 +184,8 @@ export class BlogService {
       `;
       return posts as BlogPost[];
     } catch (error) {
-      console.error("Error fetching related posts:", error);
-      return [];
+      console.error("Error fetching tags by slug:", error);
+      throw new Error("Error fetching tags by slug");
     }
   }
 
@@ -202,8 +203,8 @@ export class BlogService {
     console.log('getTagsOfPostById',JSON.stringify(result))
     return result.length > 0 && Array.isArray(result[0].tags) ? result[0].tags : [];
     } catch (error) {
-      console.error("Error fetching related tags:", error);
-      return [];
+      console.error("Error fetching tags of post by id:", error);
+      throw new Error("Error fetching tags of post by id");
     }
   }
 
@@ -229,7 +230,7 @@ export class BlogService {
       return tags.length > 0 ? tags : null;
     } catch (error) {
       console.error("Error creating post tags:", error);
-      return null;
+      throw new Error("Error creating post tags");
     }
   }
 
@@ -253,8 +254,8 @@ export class BlogService {
       `;
       return posts as BlogPost[];
     } catch (error) {
-      console.error("Error fetching related posts:", error);
-      return [];
+      console.error("Error fetching posts by user query:", error);
+      throw new Error("Error fetching posts by user query");
     }
   }
 }
