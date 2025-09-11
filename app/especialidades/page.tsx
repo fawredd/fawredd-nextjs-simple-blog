@@ -7,7 +7,7 @@ import { Metadata } from 'next';
 // --- Define constantes para claridad y fácil mantenimiento ---
 const pageUrl = `${SITE_URL}/especialidades`;
 
-const pageTitle = 'Especialidades en Medicina Regenerativa | Etercell';
+const pageTitle = 'Especialidades en Medicina Regenerativa | Bioregen Lab';
 const pageDescription = 'Descubre nuestras especialidades y los tratamientos avanzados con medicina regenerativa para traumatología, dermatología, medicina estética y más. Soluciones innovadoras para tu salud.';
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     // ✨ CRÍTICO: Una imagen representativa de las especialidades
     images: [
       {
-        url: `${SITE_URL}/assets/etercell-logo-h.png`, // Debes crear esta imagen
+        url: `${SITE_URL}/assets/logo.jpg`, // Debes crear esta imagen
         width: 1200,
         height: 630,
         alt: `Diversas aplicaciones de la medicina regenerativa en las especialidades de ${brand}`,
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: pageTitle,
     description: pageDescription,
-    images: [`${SITE_URL}/assets/etercell-logo-h.png`],
+    images: [`${SITE_URL}/assets/logo.jpg`],
     // creator: '@user', // Opcional: Tu usuario de X/Twitter
   },
   
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
             "name": brand,
             "logo": {
               "@type": "ImageObject",
-              "url": `${SITE_URL}/assets/etercell-logo-h.png`
+              "url": `${SITE_URL}/assets/logo.jpg`
             }
           }
         },

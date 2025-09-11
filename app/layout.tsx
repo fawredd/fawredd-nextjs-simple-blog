@@ -17,7 +17,7 @@ export default function RootLayout({
   return (
     <html lang="es">
       <head>
-        <link rel="canonical" href="https://etercell.com/" key="canonical" />
+        <link rel="canonical" href="https://bioregen-lab.vercel.app/" key="canonical" />
         <link
           rel="icon"
           href="/assets/favicon16.png"

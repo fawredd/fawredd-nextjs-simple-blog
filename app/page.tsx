@@ -10,7 +10,7 @@ import { GetFeaturedPost } from "@/actions/BlogActions";
 import { brand, brandKeywords, SITE_DESCRIPTION, SITE_URL } from "@/lib/config";
 
 //NEED TO UPDATE THIS BASED ON CONFIG
-const pageTitle = 'Etercell - Avances en Medicina Regenerativa'
+const pageTitle = 'Bioregen Lab - Avances en Medicina Regenerativa'
 // ✨ IMPROVEMENT: A dedicated, keyword-rich description for the blog index page
 const pageDescription = SITE_DESCRIPTION || 'Líderes en medicina regenerativa y terapias avanzadas.'
 const blogUrl = `${SITE_URL}`;
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     // ✨ CRITICAL IMPROVEMENT: Add an image for social sharing
     images: [
       {
-        url: `${SITE_URL}/assets/etercell-logo-nuevo.png`, // URL to a general blog banner image
+        url: `${SITE_URL}/assets/logo.jpg`, // URL to a general blog banner image
         width: 1200,
         height: 630,
         alt: `Banner de ${brand} sobre Medicina Regenerativa`,
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: pageTitle,
     description: pageDescription,
-    images: [`${SITE_URL}/assets/etercell-logo-nuevo.png`], // Use the same image
+    images: [`${SITE_URL}/assets/logo`], // Use the same image
     // creator: "@user", // Optional: Add your brand's X/Twitter handle
   },
   
@@ -92,7 +92,7 @@ export const metadata: Metadata = {
           "@id": `${SITE_URL}`,
           "name": brand,
           "url": SITE_URL,
-          "logo": `${SITE_URL }/assets/etercell-logo-h.png`
+          "logo": `${SITE_URL }/assets/logo.jpg`
         }
       ]
     }),
